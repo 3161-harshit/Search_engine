@@ -5,8 +5,8 @@ import os
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
-SEARCH_HISTORY_FILE = "L:\\search_engine\\search_history.csv"
-TRAINING_DATA_FILE = "L:\\search_engine\\training_data.txt"
+SEARCH_HISTORY_FILE = "search_history.csv"
+TRAINING_DATA_FILE = "training_data.txt"
 MODEL_PATH = "L:\\search_engine\\fast_model.bin"
 
 
