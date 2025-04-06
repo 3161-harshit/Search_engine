@@ -1,4 +1,4 @@
-﻿altair==5.5.0
+altair==5.5.0
 annotated-types==0.7.0
 anyio==4.7.0
 argon2-cffi==23.1.0
@@ -150,7 +150,7 @@ pure_eval==0.2.3
 pyarrow==18.1.0
 pyasn1==0.6.1
 pyasn1_modules==0.4.1
-PyAudio==0.2.14
+# PyAudio==0.2.14  # Commented out
 pybind11==2.13.6
 pycparser==2.22
 pydantic==2.10.3
