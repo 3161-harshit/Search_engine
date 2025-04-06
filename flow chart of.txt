@@ -1,0 +1,35 @@
+                                 flow chart of 
+
+
+                                    ┌───────────────────────────────────┐
+                                    │              User Inputs a Query            │
+                                    └───────────────────────────────────┘
+                                                           │
+                                                           ▼
+                                    ┌───────────────────────────────────┐
+                                    │       Check in Search History (CSV)         │
+                                    └───────────────────────────────────┘
+                                                           │ 
+                                                           ▼
+                                  ┌───        ─────────┬────────────      ──┐
+                                  ▼                       ▼                        ▼
+                             Matches History            Related Found       New Search (API)
+                                  │                          │                      │
+                                  ▼                         ▼                      ▼
+          ┌──────────────────────────┐  ┌──────────────────┐ ┌─────────────────────┐
+          │ Auto-Fill from History           │  │ Show Similar          │ │       Fetch from Google   │
+          │ User Can Modify if Needed        │  │ Searches (ML)         │ │       Custom Search API   │
+          └──────────────────────────┘  └──────────────────┘ └─────────────────────┘
+                                │                          │                       │
+                                ▼                         ▼                       ▼
+                                   ┌───────────────────────────────────┐
+                                   │          Save Query in History (CSV)         │    
+                                   └───────────────────────────────────┘
+                                                          │
+                                                          ▼
+                                   ┌───────────────────────────────────┐
+                                   │         Retrain FastText Model              │
+                                   └───────────────────────────────────┘
+                                                         │
+                                                         ▼
+                                           Improved AI Suggestions Over Time
