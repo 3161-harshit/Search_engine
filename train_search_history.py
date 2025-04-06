@@ -7,7 +7,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 SEARCH_HISTORY_FILE = "search_history.csv"
 TRAINING_DATA_FILE = "training_data.txt"
-MODEL_PATH = "L:\\search_engine\\fast_model.bin"
+MODEL_PATH = "fast_model.bin"
 
 
 def load_search_history():
