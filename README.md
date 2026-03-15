@@ -224,5 +224,3 @@ Kalinga Institute of Industrial Technology
 
 GitHub
 [https://github.com/3161-harshit](https://github.com/3161-harshit)
-
-If you want, I can also show you **one trick that makes both your projects (Search Engine + Movie Recommendation) look like a complete AI portfolio**, which **greatly impresses recruiters**.
