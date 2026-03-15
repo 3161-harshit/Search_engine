@@ -5,8 +5,8 @@ import os
 from train_search_history import load_search_history, get_related_searches, process_search, train_fasttext_model
 
 # Constants
-GOOGLE_SEARCH_API_KEY = "personal_API"
-SEARCH_ENGINE_ID = "PERSONAL_ENGINE"
+GOOGLE_SEARCH_API_KEY = "AIzaSyD30IVyVndnxcAPuGIsVWySTvkEovj_PzM"
+SEARCH_ENGINE_ID = "810a40fa74b054e3c"
 IMAGE_PATH = "L:\\search_engine\\image.png"
 
 
