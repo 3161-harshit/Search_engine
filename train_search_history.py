@@ -42,14 +42,25 @@ def load_fasttext_model():
 fasttext_model = load_fasttext_model()
 
 
+@lru_cache(maxsize=32)
+def _cached_history_vectors(history_queries):
+    if fasttext_model is None or not history_queries:
+        return np.empty((0, 0))
+    return np.array([fasttext_model.get_sentence_vector(q) for q in history_queries])
+
+
 def get_related_searches(query, history_df, model, threshold=0.7):
-    if history_df.empty:
+    if history_df.empty or model is None:
+        return []
+    history_queries = tuple(history_df["query"].dropna().astype(str).tolist())
+    if not history_queries:
         return []
     input_vector = model.get_sentence_vector(query)
-    history_vectors = np.array([model.get_sentence_vector(q) for q in history_df["query"]])
+    history_vectors = _cached_history_vectors(history_queries)
+    if history_vectors.size == 0:
+        return []
     similarities = cosine_similarity([input_vector], history_vectors).flatten()
-    related_searches = history_df.loc[similarities >= threshold, "query"].tolist()
-    return related_searches
+    return [history_queries[i] for i in np.where(similarities >= threshold)[0]]
 
 
 def process_search(query):
@@ -67,6 +78,7 @@ def process_search(query):
         history_df = pd.concat([history_df, new_entry], ignore_index=True)
         history_df.to_csv(SEARCH_HISTORY_FILE, index=False)
         fasttext_model = train_fasttext_model()
+        _cached_history_vectors.cache_clear()
         _cached_history_vectors.cache_clear()
 
 # Example usage
