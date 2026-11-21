@@ -3,6 +3,7 @@ import fasttext
 import fasttext.util
 import os
 import numpy as np
+from functools import lru_cache
 from sklearn.metrics.pairwise import cosine_similarity
 
 SEARCH_HISTORY_FILE = "search_history.csv"
@@ -66,6 +67,7 @@ def process_search(query):
         history_df = pd.concat([history_df, new_entry], ignore_index=True)
         history_df.to_csv(SEARCH_HISTORY_FILE, index=False)
         fasttext_model = train_fasttext_model()
+        _cached_history_vectors.cache_clear()
 
 # Example usage
 if __name__ == "__main__":
