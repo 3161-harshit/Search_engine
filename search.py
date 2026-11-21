@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import pandas as pd
 import os
-from train_search_history import load_search_history, get_related_searches, process_search, train_fasttext_model
+from train_search_history import load_search_history, get_related_searches, process_search, fasttext_model
 
 # Constants
 GOOGLE_SEARCH_API_KEY = "personal_API"
@@ -112,7 +112,7 @@ search_history = load_search_history()
 search_query = st.text_input("🔍 Search here...", key="search_input")
 
 if search_query:
-    suggestions = get_related_searches(search_query, search_history, train_fasttext_model())
+    suggestions = get_related_searches(search_query, search_history, fasttext_model)
     if suggestions:
         selected_query = st.selectbox("🔽 Previous Searches:", suggestions, index=0)
         if st.button("Use Selected Query"):
