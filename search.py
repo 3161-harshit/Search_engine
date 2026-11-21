@@ -11,9 +11,12 @@ IMAGE_PATH = "L:\\search_engine\\image.png"
 
 
 def get_google_search_results(query):
-    url = f"https://www.googleapis.com/customsearch/v1?q={query}&key={GOOGLE_SEARCH_API_KEY}&cx={SEARCH_ENGINE_ID}"
+    url = "https://www.googleapis.com/customsearch/v1"
+    params = {"q": query, "key": GOOGLE_SEARCH_API_KEY, "cx": SEARCH_ENGINE_ID}
     try:
-        response = requests.get(url).json()
+        response_obj = requests.get(url, params=params, timeout=10)
+        response_obj.raise_for_status()
+        response = response_obj.json()
         search_results = []
         if "items" in response:
             for item in response["items"][:10]:  # Limit to top 10 results
@@ -23,8 +26,14 @@ def get_google_search_results(query):
                     "snippet": item.get("snippet", "No description available.")
                 })
         return search_results if search_results else [{"title": "❌ No results found.", "link": "#", "snippet": ""}]
-    except Exception as e:
-        return [{"title": f"❌ API Error: {str(e)}", "link": "#", "snippet": ""}]
+    except requests.exceptions.Timeout:
+        return [{"title": "❌ Search request timed out. Please try again.", "link": "#", "snippet": ""}]
+    except requests.exceptions.HTTPError as e:
+        return [{"title": f"❌ Google API returned an HTTP error: {e}", "link": "#", "snippet": ""}]
+    except requests.exceptions.RequestException as e:
+        return [{"title": f"❌ Network error: {e}", "link": "#", "snippet": ""}]
+    except ValueError:
+        return [{"title": "❌ Google API returned an invalid response.", "link": "#", "snippet": ""}]
 
 
 st.set_page_config(page_title="HFS Search Engine", layout="wide")
